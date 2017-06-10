@@ -1,9 +1,10 @@
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4 cc=80
 from ..model import Mesh 
 from math import pi, sin, cos
 class Torus(Mesh):
     list = None
     def __init__(self, radius, inner_radius, slices, inner_slices, 
-                 batch, group=None, **args):
+                 group=None, **args):
         vertices = []
         normals = []
 
@@ -43,5 +44,4 @@ class Torus(Mesh):
         super(Torus,self).__init__(vertices = vertices,
                                    indices = indices,
                                    normals = normals,
-                                   batch = batch, 
-																	 **args)
+                                   **args)

@@ -1,18 +1,19 @@
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4 cc=80
 from gameobject import GameObject
+from pyglet.graphics import Batch
 from pyglet.gl import GL_TRIANGLES
 
 class Mesh(GameObject):
-    def __init__(self, batch, vertices=[], indices=[], normals=[], group=None, 
+    def __init__(self, vertices=[], indices=[], normals=[], group=None, 
                  **args):
-        self.vertices = vertices
-        self.indices = indices
-        self.normals = normals
-        self.batch = batch
+        self.vertices = [x for x in vertices]
+        self.indices = [x for x in indices]
+        self.normals = [x for x in normals ]
         self.vertex_list = None
+        self.batch = Batch()
         self.group = group
-        self.update_mesh()
         super(Mesh, self).__init__(**args)
+        self.update_mesh()
 
     def update_mesh(self):
         if self.vertex_list:
@@ -28,6 +29,6 @@ class Mesh(GameObject):
         if self.vertex_list is not None: self.vertex_list.delete()
 
     def onDraw(self):
-        super(Mesh,self).onDraw(self)
+        super(Mesh,self).onDraw()
         self.batch.draw()
         

@@ -68,6 +68,12 @@ def MainSetup(self):
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, vec(1, 1, 1, 1))
     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 50)
 
+@main('onDraw')
+def MainDraw(self):
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+
 def run():
     main.setup()
     pyglet.clock.schedule(main.update)

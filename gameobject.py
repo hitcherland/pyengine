@@ -4,11 +4,10 @@ from pyglet.gl import *
 
 class GameObject(object):
     def __init__(self, position=[0,0,0], rotation = [0,0,0]):
-        print position
-        self.position = position
-        self.rotation = rotation
+        self.position = [ x for x in position ]
+        self.rotation = [ y for y in rotation ]
         self.children = []
-
+        
     def update(self, dt):
         self.onUpdate(dt)
         for child in self.children:
@@ -22,18 +21,16 @@ class GameObject(object):
     def onSetup(self): pass
 
     def draw(self):
-        glLoadIdentity()
+        glPushMatrix()
         glTranslatef(*self.position)
         glRotatef(self.rotation[2], 0, 0, 1)
         glRotatef(self.rotation[1], 0, 1, 0)
         glRotatef(self.rotation[0], 1, 0, 0)
-
         self.onDraw()
         for child in self.children:
             child.draw()
-
-    def onDraw(self):
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        glPopMatrix()
+    def onDraw(self): pass
 
     def override(self,methodname):
         if not hasattr(self, methodname):
@@ -48,6 +45,10 @@ class GameObject(object):
         self.rotation[0] += rx
         self.rotation[1] += ry
         self.rotation[2] += rz
+
+        self.rotation[0] %= 360
+        self.rotation[1] %= 360
+        self.rotation[2] %= 360
         
     def __call__(self,methodname):
         return self.override(methodname)

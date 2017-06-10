@@ -1,1 +1,1 @@
-__all__ = [ 'torus' ]
+__all__ = [ 'torus', 'tube' ]
